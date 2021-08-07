@@ -19,8 +19,14 @@ router.post('/addTeacher', async (req, res) => {
     const {fullname,email,password} = req.body;
     const response = await pool.query('INSERT INTO public.profesor (name, email, password) VALUES ($1,$2,$3)',[fullname,email,password]);
     res.status(200);
-    console.log(response);
     res.send('Usuario creado'); //codigo de status
+});
+
+router.get('/', async (req, res) => {
+    const response = await pool.query('SELECT * FROM public.profesor');
+    const responsejson = response.rows
+    res.render('links/listTeachers', {responsejson});
+    res.status(200)
 });
 
 

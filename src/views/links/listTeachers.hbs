@@ -1,0 +1,22 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each responsejson}}
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Profesor {{name}}</h5>
+                    <p class="card-text">El profesor {{name}}, tiene como email personal: {{email}} y realiza clases en la asignatura:</p>
+                    <a href="#" class="btn btn-primary">Editar Contacto</a>
+                    <a href="#" class="btn btn-primary">Eliminar Contacto</a>
+                </div>
+            </div>
+        {{else}}
+            <div class="col-md-4 mx-auto">
+                <div class="card card-body text-center">
+                    <p>There are not Links saved yet.</p>
+                    <a href="/links/add">Create One!</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
