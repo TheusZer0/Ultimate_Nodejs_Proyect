@@ -1,3 +1,11 @@
+
+<div class="album py-5 bg-light">
+    <div class="container text-center">
+<a href="/teachers/addTeacher" role=button type="button" class="btn btn-primary btn-lg btn-block">Agregar un nuevo Profesor</a>
+    </div>
+</div>
+
+
 <div class="container p-4">
     <div class="row">
         {{#each responsejson}}
@@ -6,15 +14,15 @@
                 <div class="card-body">
                     <h5 class="card-title">Profesor {{name}}</h5>
                     <p class="card-text">El profesor {{name}}, tiene como email personal: {{email}} y realiza clases en la asignatura:</p>
-                    <a href="#" class="btn btn-primary">Editar Contacto</a>
-                    <a href="#" class="btn btn-primary">Eliminar Contacto</a>
+                    <a href="/teachers/editTeacher/{{id}}" class="btn btn-primary">Editar Contacto</a>
+                    <a href="/teachers/deleteTeacher/{{id}}" class="btn btn-primary">Eliminar Contacto</a>
                 </div>
             </div>
         {{else}}
             <div class="col-md-4 mx-auto">
                 <div class="card card-body text-center">
-                    <p>There are not Links saved yet.</p>
-                    <a href="/links/add">Create One!</a>
+                    <p>No existe la tabla de contactos para los Profesores</p>
+                    <a href="/links/add">Debe Agregar profesores!</a>
                 </div>
             </div>
         {{/each}}

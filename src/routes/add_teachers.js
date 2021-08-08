@@ -5,12 +5,6 @@ const router = express.Router();
 
 const pool = require('../database');
 
-//const getUsers = async (req, res) => {
-//    const response = await pool.query('SELECT * FROM users');
-//    console.log(response.rows);
-//    res.send('users')
-//}
-
 router.get('/addTeacher',async (req, res) => {
     res.status(200).render('links/addTeacher')
 });
@@ -18,8 +12,8 @@ router.get('/addTeacher',async (req, res) => {
 router.post('/addTeacher', async (req, res) => {
     const {fullname,email,password} = req.body;
     const response = await pool.query('INSERT INTO public.profesor (name, email, password) VALUES ($1,$2,$3)',[fullname,email,password]);
-    res.status(200);
-    res.send('Usuario creado'); //codigo de status
+    req.flash('success','Agregado correctamente');
+    res.status(200).redirect('/teachers/');//codigo de status
 });
 
 router.get('/', async (req, res) => {
@@ -27,6 +21,32 @@ router.get('/', async (req, res) => {
     const responsejson = response.rows
     res.render('links/listTeachers', {responsejson});
     res.status(200)
+});
+
+router.get('/deleteTeacher/:id', async (req, res) => {
+    const response = await pool.query('DELETE FROM public.profesor WHERE id = $1', [parseInt(req.params.id)]);
+    res.status(200).redirect('/teachers/');//codigo de status
+});
+
+router.get('/editTeacher/:id', async (req, res) => {
+    //const id = parseInt(req.params.id);
+    const response = await pool.query('SELECT * FROM public.profesor WHERE id = $1', [parseInt(req.params.id)]);
+    const responsejson = response.rows;
+    res.render('links/editTeacher', {responsejson});
+    //res.status(200).redirect('/teachers/');//codigo de status
+});
+
+router.post('/editTeacher/:id', async (req, res) => {
+    const {id} = req.params;
+    const {fullname,email,password} = req.body;
+    console.log(id)
+    const response =await pool.query('UPDATE public.profesor SET name = $1, email = $2,password = $3 WHERE id = $4', [
+        fullname,
+        email,
+        password,
+        id
+    ]);
+    res.status(200).redirect('/teachers/');//codigo de status
 });
 
 

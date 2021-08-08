@@ -26,6 +26,18 @@
 
 <main role="main">
 
+    {{#if success}}
+            <div class = "container">
+                <div class="col-md-4 mx-auto">
+                    <div class=".alert.alert-success.alert-dismissible.fade.show" role="alert"></div>
+                    {{success}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">$times;</span>
+                    </button>
+                </div>
+            </div>
+    {{/if}}
+
 {{{body}}}
 
 </main>
