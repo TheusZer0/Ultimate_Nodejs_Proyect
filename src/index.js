@@ -5,7 +5,8 @@ const path = require('path');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const pgSession = require('express-pg-session')
+const pgSession = (require('connect-pg-simple')(session));
+const pgPool = require('./database');
 
 // inicializacion del modulo express
 const app =  express();
@@ -26,12 +27,16 @@ app.set('view engine', '.hbs');
 
 // middlewares
 app.use(session({
+    store: new pgSession({
+        pool: pgPool,
+        tableName: 'session'
+    }),
     secret: "usm-charapter",
     resave: false,
     saveUninitialized: false,
-    store: new (pgSession(session))(),
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
-}));
+}))
+
 app.use(flash());
 
 app.use(morgan('dev'));
@@ -47,7 +52,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(((req, res) => {
+app.use(((req, res,next) => {
     app.locals.success = req.flash('success');
     next();
 }));

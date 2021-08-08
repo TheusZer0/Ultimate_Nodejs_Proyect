@@ -12,8 +12,8 @@ router.get('/addTeacher',async (req, res) => {
 router.post('/addTeacher', async (req, res) => {
     const {fullname,email,password} = req.body;
     const response = await pool.query('INSERT INTO public.profesor (name, email, password) VALUES ($1,$2,$3)',[fullname,email,password]);
-    req.flash('success','Agregado correctamente');
     res.status(200).redirect('/teachers/');//codigo de status
+    req.flash('success','Agregado correctamente');
 });
 
 router.get('/', async (req, res) => {

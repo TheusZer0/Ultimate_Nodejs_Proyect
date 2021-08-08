@@ -56,6 +56,16 @@ CREATE TABLE IF NOT EXISTS public.links (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-INSERT INTO public.users(name, password, email)
-VALUES ('admin', 'usm-charapter', 'admin@usm.cl');
+CREATE TABLE "session" (
+    "sid" varchar NOT NULL COLLATE "default",
+    "sess" json NOT NULL,
+    "expire" timestamp(6) NOT NULL
+);
+    WITH (OIDS=FALSE);
+
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+INSERT INTO public.users(name, password, email) VALUES ('admin', 'usm-charapter', 'admin@usm.cl');
 

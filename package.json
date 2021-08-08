@@ -13,6 +13,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.0",
     "connect-flash": "^0.1.1",
+    "connect-pg-simple": "^6.2.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "express-pg-session": "^1.1.0",
